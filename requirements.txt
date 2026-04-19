@@ -1,0 +1,12 @@
+flask
+groq
+python-dotenv
+pillow
+pydantic
+pydantic-settings
+marshmallow
+flask-cors
+flasgger
+pytest
+pytest-cov
+python-multipart
