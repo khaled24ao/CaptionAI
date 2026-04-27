@@ -8,11 +8,18 @@ from backend.utils.logger import app_logger
 import os
 
 
-def create_app():
+def create_app() -> Flask:
+    """Create and configure the Flask application.
+    
+    Returns:
+        Flask: The configured Flask application instance.
+    """
     settings = get_settings()
     
-    template_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "templates")
-    app = Flask(__name__, template_folder=template_folder)
+    template_folder: str = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "templates"
+    )
+    app: Flask = Flask(__name__, template_folder=template_folder)
     
     app.config["UPLOAD_FOLDER"] = os.path.join(
         os.path.dirname(os.path.dirname(__file__)), 
@@ -39,12 +46,17 @@ def create_app():
     app.register_blueprint(caption_bp)
     
     @app.route("/")
-    def index():
+    def index() -> str:
+        """Render the main application page.
+        
+        Returns:
+            str: Rendered HTML template.
+        """
         return render_template("index.html")
     
     if settings.debug:
         app_logger.setLevel("DEBUG")
     
-    app_logger.info(f"Application started: {settings.app_name}")
+    app_logger.info("Application started: %s", settings.app_name)
     
     return app

@@ -25,14 +25,14 @@ class Settings(BaseSettings):
     
     @field_validator("debug", mode="before")
     @classmethod
-    def parse_debug(cls, v):
+    def parse_debug(cls, v: str | bool) -> bool:
         if isinstance(v, bool):
             return v
         if isinstance(v, str):
             return v.lower() in ("true", "1", "yes")
         return False
     
-    def validate_api_key(self):
+    def validate_api_key(self) -> bool:
         if not self.groq_api_key or self.groq_api_key == "your_api_key_here":
             return False
         return True

@@ -1,4 +1,5 @@
 from marshmallow import Schema, fields, validate, validates, ValidationError
+from typing import Any
 
 
 class CaptionResponseSchema(Schema):
@@ -19,7 +20,7 @@ class ImageUploadSchema(Schema):
     image = fields.Raw(required=True, metadata={"type": "file"})
     
     @validates("image")
-    def validate_image(self, value):
+    def validate_image(self, value: Any) -> None:
         if not value:
             raise ValidationError("No image file provided")
         if hasattr(value, "filename") and not value.filename:

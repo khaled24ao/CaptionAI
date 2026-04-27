@@ -2,11 +2,11 @@ from flask import Flask, Response
 import secrets
 
 
-def add_security_headers(app: Flask):
+def add_security_headers(app: Flask) -> Flask:
     app.secret_key = secrets.token_hex(32)
     
     @app.after_request
-    def security_headers(response: Response):
+    def security_headers(response: Response) -> Response:
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-XSS-Protection"] = "1; mode=block"

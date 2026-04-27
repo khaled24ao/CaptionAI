@@ -1,8 +1,11 @@
+from typing import Optional
+
+
 class CaptionAIException(Exception):
     status_code: int = 500
     message: str = "Internal server error"
     
-    def __init__(self, message: str = None):
+    def __init__(self, message: Optional[str] = None) -> None:
         self.message = message or self.message
         super().__init__(self.message)
 
